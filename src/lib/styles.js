@@ -1,0 +1,11 @@
+export const container = "mx-auto w-full max-w-[1380px] px-5 sm:px-8 lg:px-12";
+export const section = "py-20 md:py-28";
+export const eyebrow = "mb-5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c7ff76]";
+export const title = "text-4xl font-semibold leading-[1.08] tracking-[-0.065em] sm:text-5xl lg:text-6xl";
+export const pageTitle = "text-[clamp(3.4rem,7.5vw,7rem)] font-semibold leading-[1.02] tracking-[-0.08em]";
+export const italic = "font-serif font-normal italic tracking-[-0.06em] text-[#c7ff76]";
+export const lead = "text-base leading-8 text-[#9caac2] md:text-lg";
+export const panel = "rounded-2xl border border-white/10 bg-[#111a29]";
+export const primaryButton = "btn h-12 rounded-full border-[#c7ff76] bg-[#c7ff76] px-6 font-semibold text-[#081016] shadow-[0_0_25px_#c7ff7626] hover:border-white hover:bg-white motion-safe:transition-transform motion-safe:hover:-translate-y-1";
+export const outlineButton = "btn btn-outline h-12 rounded-full border-white/25 bg-transparent px-6 text-white shadow-none hover:border-[#c7ff76] hover:bg-[#c7ff76] hover:text-[#081016] motion-safe:transition-transform motion-safe:hover:-translate-y-1";
+export const textLink = "inline-flex items-center gap-3 border-b border-[#c7ff76]/60 pb-2 text-sm font-semibold text-[#c7ff76] transition-colors hover:border-white hover:text-white";

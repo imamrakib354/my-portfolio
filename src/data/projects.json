@@ -1,0 +1,71 @@
+[
+  {
+    "slug": "bazar-dor",
+    "name": "Bazar Dor",
+    "category": "Everyday utility",
+    "type": "Full-stack web app",
+    "year": "2026",
+    "image": "/images/bazar-dor.png",
+    "imageAlt": "Bazar Dor homepage showing Bengali market prices and product cards",
+    "accent": "green",
+    "summary": "A Bengali-language guide to everyday market prices in Bangladesh.",
+    "overview": "Bazar Dor brings essential commodity prices together in one approachable Bengali interface. Visitors can browse products by category, follow price increases and decreases, and compare prices across markets. Registered users can explore detailed product information and manage their profiles.",
+    "challenge": "Make changing market prices easy to scan and compare without losing the local context that makes the information useful.",
+    "solution": "I designed a responsive product directory with price-change indicators, category browsing and sorting, detailed market comparisons, and account-based access to deeper product data.",
+    "features": [
+      "Daily price changes and a scrolling price ticker",
+      "Category browsing, sorting, and product details",
+      "Market-wise comparisons and estimated price ranges",
+      "Email and social sign-in with protected pages"
+    ],
+    "stack": ["Next.js", "React", "JavaScript", "Tailwind CSS", "MongoDB", "Better Auth"],
+    "github": "https://github.com/imamrakib354/bazar-dor-web-app",
+    "demo": "https://bazar-dor-web-app-nu.vercel.app/"
+  },
+  {
+    "slug": "fitlog",
+    "name": "FitLog",
+    "category": "Health & fitness",
+    "type": "Workout planner",
+    "year": "2026",
+    "image": "/images/my-fit-log.png",
+    "imageAlt": "FitLog workout library with exercise cards and a dark interface",
+    "accent": "lime",
+    "summary": "A workout library that turns exercise discovery into a practical daily plan.",
+    "overview": "FitLog is a workout companion for exploring exercises and making a plan that sticks. Users can inspect individual workouts, assemble a daily routine, save exercises for later, and track completed work. Plans persist locally so they are still there after a refresh.",
+    "challenge": "Give people a simple way to move from browsing exercises to organizing an achievable workout session.",
+    "solution": "I connected a searchable exercise library to individual workout pages and a plan dashboard, using shared React state and local storage to keep actions in sync.",
+    "features": [
+      "Searchable workout library and exercise details",
+      "Daily plan with a five-exercise limit",
+      "Saved exercises and completion tracking",
+      "Persistent plans, sorting, and workout totals"
+    ],
+    "stack": ["Next.js", "React", "JavaScript", "Tailwind CSS", "Context API", "localStorage"],
+    "github": "https://github.com/imamrakib354/My-FitLog-App",
+    "demo": "https://my-fit-log-app-delta.vercel.app/"
+  },
+  {
+    "slug": "movie-explorer",
+    "name": "Movie Explorer",
+    "category": "Entertainment",
+    "type": "Frontend experience",
+    "year": "2026",
+    "image": "/images/movie explorer.png",
+    "imageAlt": "Movie Explorer cinematic homepage with a purple and pink movie theater hero",
+    "accent": "violet",
+    "summary": "A cinematic way to discover, search, and learn about TV shows.",
+    "overview": "Movie Explorer makes discovering a new show feel as enjoyable as watching one. It brings together a browsable show grid, title search, ratings and release information, and a quick details view, all powered by the TVMaze API.",
+    "challenge": "Present a large catalog of shows in an experience that feels inviting rather than overwhelming.",
+    "solution": "I built a responsive, cinema-inspired interface with a clear search flow and a details modal that lets visitors explore a show without losing their place.",
+    "features": [
+      "TV show browsing with TVMaze API data",
+      "Search by show name",
+      "Ratings, premiere dates, and poster previews",
+      "Details modal with genres and summaries"
+    ],
+    "stack": ["React", "JavaScript", "React Router", "Tailwind CSS", "Vite", "TVMaze API"],
+    "github": "https://github.com/imamrakib354/My-Movie-Explorer",
+    "demo": "https://my-movie-explorer-ivory.vercel.app/"
+  }
+]
