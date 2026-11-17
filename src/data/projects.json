@@ -1,14 +1,81 @@
 [
   {
+    "slug": "book-nook",
+    "name": "Book Nook",
+    "category": "Community & reading",
+    "discipline": "Full-stack",
+    "featured": true,
+    "type": "Full-stack book-sharing app",
+    "role": "Frontend & backend development",
+    "year": "2026",
+    "image": "/projects/book-nook/cover.webp",
+    "imageAlt": "Book Nook's forest-green homepage with its book-sharing hero and new arrivals",
+    "accent": "emerald",
+    "summary": "A community library for discovering, sharing, borrowing, and returning books.",
+    "evidence": "JWT-protected APIs, ownership checks, and a complete borrow / return workflow.",
+    "overview": "Book Nook connects readers with books shared by a community. I built a Next.js and TypeScript frontend alongside a separate Express API, with MongoDB storing books and borrowing records. Readers can discover titles, contribute their own books, and manage loans through personal dashboards.",
+    "challenge": "Connect an inviting reading experience to real application rules: who can change a book, whether a copy is available, and which borrowing records belong to the signed-in reader.",
+    "solution": "I separated the interface from the Express API, used Better Auth for sessions and JWTs, and checked identity and ownership on protected endpoints. Borrow and return operations update availability, while the dashboard makes loan information easier to follow.",
+    "features": [
+      "Book discovery with search, categories, and sorting",
+      "Add, edit, and delete your own books",
+      "Borrow available copies and track due dates",
+      "Return books and restore available copies",
+      "Email/password and Google/GitHub sign-in",
+      "Image uploads, reader profiles, and dark/light themes"
+    ],
+    "stack": ["Next.js", "TypeScript", "Express.js", "MongoDB", "Better Auth", "JWT / jose", "Tailwind CSS", "shadcn/ui"],
+    "github": "https://github.com/imamrakib354/book-nook-client",
+    "serverGithub": "https://github.com/imamrakib354/book-nook-server",
+    "demo": "https://book-nook-client-ten.vercel.app/",
+    "screenshots": [
+      { "src": "/projects/book-nook/home.webp", "width": 1600, "height": 3187, "title": "The community library", "alt": "Book Nook homepage showing its hero, new arrivals, borrowing guide, and categories", "caption": "A forest-green and gold interface introduces the library, highlights recent books, and explains how sharing works." },
+      { "src": "/projects/book-nook/catalog.webp", "width": 1600, "height": 5304, "title": "Discover a book", "alt": "Book Nook catalog with search controls and book cards", "caption": "Search, category filters, and sorting help readers move from a large catalog to a book they want to borrow." },
+      { "src": "/projects/book-nook/add.webp", "width": 1600, "height": 1844, "title": "Share your shelf", "alt": "Add Book form with cover image and book information fields", "caption": "Readers contribute books with a cover, description, number of copies, and borrowing period." },
+      { "src": "/projects/book-nook/books.webp", "width": 1600, "height": 1352, "title": "Your contributions", "alt": "My Books dashboard showing contribution totals and an empty state", "caption": "The contribution dashboard includes summary information and a clear empty state for readers who have not shared a book yet." },
+      { "src": "/projects/book-nook/borrows.webp", "width": 1600, "height": 1226, "title": "Track & return", "alt": "My Borrows dashboard with a borrowed book, dates, and Return Book action", "caption": "A personal borrowing view brings loan dates and the return action together instead of hiding them in book details." },
+      { "src": "/projects/book-nook/profile.webp", "width": 1600, "height": 956, "title": "Reader profile", "alt": "Book Nook reader profile with account information and book statistics", "caption": "Profile information and reader statistics give the signed-in experience a personal home." },
+      { "src": "/projects/book-nook/light.webp", "width": 1600, "height": 3187, "title": "A lighter chapter", "alt": "Book Nook homepage in its light theme", "caption": "A light theme offers another reading environment while preserving the same layout and product identity." }
+    ],
+    "architecture": {
+      "title": "One product. Two connected applications.",
+      "description": "A simplified view of the application boundary—not a claim that every request takes the same route.",
+      "nodes": [
+        { "label": "01 / INTERFACE", "title": "Next.js + TypeScript", "detail": "Catalog, forms, dashboards, and protected pages." },
+        { "label": "02 / IDENTITY", "title": "Better Auth + JWT", "detail": "Sessions identify readers; bearer tokens accompany protected API requests." },
+        { "label": "03 / API", "title": "Express + jose", "detail": "JWKS token verification, ownership checks, and book / borrow endpoints." },
+        { "label": "04 / DATA", "title": "MongoDB", "detail": "Book documents, available copies, and user-scoped borrowing records." }
+      ],
+      "note": "Authentication answers who is making the request. Ownership checks decide which records that person may change."
+    },
+    "workflow": [
+      { "title": "Discover", "detail": "Browse the catalog and narrow it down by title, author, or category." },
+      { "title": "Sign in", "detail": "Authenticate before using protected pages and borrowing actions." },
+      { "title": "Borrow", "detail": "The API conditionally decreases an available copy and creates a dated borrowing record." },
+      { "title": "Return", "detail": "The API checks the borrower, removes the loan record, and restores an available copy." }
+    ],
+    "decisions": [
+      { "title": "Verify identity at the API boundary", "choice": "Bearer JWTs verified against Better Auth's JWKS with jose, including issuer and audience checks.", "reason": "A protected page is not a substitute for protecting the endpoint that reads or changes data.", "tradeoff": "The separate frontend and API need consistent auth configuration and reachable signing keys." },
+      { "title": "Scope writes to the owner", "choice": "Update and delete queries match both the book ID and the authenticated owner's email.", "reason": "Being signed in should not allow a reader to change someone else's contribution.", "tradeoff": "A stable user ID would be a stronger long-term ownership key than an email address." },
+      { "title": "Check availability when updating", "choice": "The copy decrement matches only a book whose copies are greater than zero.", "reason": "Checking availability inside the update is better than relying on a possibly stale interface.", "tradeoff": "The copy update and loan insert are separate writes; a transaction is a future consistency improvement." }
+    ],
+    "lessons": ["Connecting separate Next.js and Express deployments", "Distinguishing authentication from authorization", "Designing feedback around asynchronous forms and API actions"],
+    "improvements": ["Transactional borrow / return operations and stronger server validation", "Borrowing history, pagination, and automated API tests", "Due-date reminders and a clearer overdue policy"]
+  },
+  {
     "slug": "bazar-dor",
     "name": "Bazar Dor",
     "category": "Everyday utility",
-    "type": "Full-stack web app",
+    "discipline": "Full-stack",
+    "featured": true,
+    "type": "API-driven app with authentication",
+    "role": "Interface & application development",
     "year": "2026",
-    "image": "/images/bazar-dor.png",
+    "image": "/projects/bazar-dor/cover.webp",
     "imageAlt": "Bazar Dor homepage showing Bengali market prices and product cards",
     "accent": "green",
     "summary": "A Bengali-language guide to everyday market prices in Bangladesh.",
+    "evidence": "Localized data presentation, market comparisons, and session-protected details.",
     "overview": "Bazar Dor brings essential commodity prices together in one approachable Bengali interface. Visitors can browse products by category, follow price increases and decreases, and compare prices across markets. Registered users can explore detailed product information and manage their profiles.",
     "challenge": "Make changing market prices easy to scan and compare without losing the local context that makes the information useful.",
     "solution": "I designed a responsive product directory with price-change indicators, category browsing and sorting, detailed market comparisons, and account-based access to deeper product data.",
@@ -20,18 +87,53 @@
     ],
     "stack": ["Next.js", "React", "JavaScript", "Tailwind CSS", "MongoDB", "Better Auth"],
     "github": "https://github.com/imamrakib354/bazar-dor-web-app",
-    "demo": "https://bazar-dor-web-app-nu.vercel.app/"
+    "demo": "https://bazar-dor-web-app-nu.vercel.app/",
+    "screenshots": [
+      { "src": "/projects/bazar-dor/home.webp", "width": 1600, "height": 3876, "title": "Prices at a glance", "alt": "Bazar Dor homepage with Bengali product names and rising and falling prices", "caption": "The homepage separates the biggest price increases and decreases before presenting the broader product directory." },
+      { "src": "/projects/bazar-dor/category.webp", "width": 1600, "height": 974, "title": "Browse a category", "alt": "Bazar Dor category view with product cards and price sorting", "caption": "Category navigation and low-to-high or high-to-low sorting make a focused product list easier to scan." },
+      { "src": "/projects/bazar-dor/details.webp", "width": 1600, "height": 1559, "title": "Compare the markets", "alt": "Bazar Dor product details with minimum, maximum, estimated average, and market price table", "caption": "Product details summarize market ranges and estimate an average from the midpoint of each market's minimum and maximum." },
+      { "src": "/projects/bazar-dor/signin.webp", "width": 1600, "height": 974, "title": "Account access", "alt": "Bazar Dor sign-in form", "caption": "Better Auth handles account access, while protected detail pages check the session on the server." },
+      { "src": "/projects/bazar-dor/signup.webp", "width": 1600, "height": 1148, "title": "Join the application", "alt": "Bazar Dor account registration form", "caption": "A localized registration interface keeps the account experience consistent with the rest of the product." }
+    ],
+    "architecture": {
+      "title": "External prices. Local context.",
+      "description": "Product prices come from an external API. MongoDB supports authentication data, not a custom market-price collection.",
+      "nodes": [
+        { "label": "01 / SOURCE", "title": "Product API", "detail": "External product, category, and market-price information." },
+        { "label": "02 / APPLICATION", "title": "Next.js", "detail": "Server-rendered pages and session checks for protected details." },
+        { "label": "03 / PRESENTATION", "title": "Bengali interface", "detail": "Sorting, change indicators, localized numbers, and market summaries." },
+        { "label": "04 / IDENTITY", "title": "Better Auth", "detail": "Email / social sign-in with authentication records in MongoDB." }
+      ],
+      "note": "The cards show application responsibilities. Better Auth is a supporting identity layer, not the destination of product-price data."
+    },
+    "workflow": [
+      { "title": "Scan", "detail": "See the biggest upward and downward price changes on the homepage." },
+      { "title": "Browse", "detail": "Choose a category and sort products by the current price." },
+      { "title": "Authenticate", "detail": "A server-side session check protects the detailed product view." },
+      { "title": "Compare", "detail": "Inspect market ranges and the minimum, maximum, and estimated average." }
+    ],
+    "decisions": [
+      { "title": "Design for Bengali readers", "choice": "Bengali labels, localized numeric formatting, and familiar product categories.", "reason": "Market information should be understandable without requiring readers to translate the interface.", "tradeoff": "Responsive layouts need room for longer labels and locally formatted values." },
+      { "title": "Explain a range, not a false exact price", "choice": "Display market minimums, maximums, and an average of market midpoints.", "reason": "A range communicates that prices differ between markets.", "tradeoff": "The average is an estimate from supplied ranges, not a weighted transaction average." },
+      { "title": "Check sessions on the server", "choice": "Use Better Auth's session API before rendering protected product details.", "reason": "Protected content should not depend on a client-side visibility check.", "tradeoff": "Account access adds a step to the comparison journey; public summaries remain browsable." }
+    ],
+    "lessons": ["Turning external API data into useful summaries", "Building Bengali-first responsive interfaces", "Combining server-rendered content with client-side sorting"],
+    "improvements": ["Pagination and more resilient API error states", "Visible data-source and update-time information", "Tests for price calculations and account flows"]
   },
   {
     "slug": "fitlog",
     "name": "FitLog",
     "category": "Health & fitness",
+    "discipline": "Frontend",
+    "featured": true,
     "type": "Workout planner",
+    "role": "Frontend development",
     "year": "2026",
-    "image": "/images/my-fit-log.png",
+    "image": "/projects/fitlog/cover.webp",
     "imageAlt": "FitLog workout library with exercise cards and a dark interface",
     "accent": "lime",
     "summary": "A workout library that turns exercise discovery into a practical daily plan.",
+    "evidence": "Shared React state, persistent plans, and derived workout summaries.",
     "overview": "FitLog is a workout companion for exploring exercises and making a plan that sticks. Users can inspect individual workouts, assemble a daily routine, save exercises for later, and track completed work. Plans persist locally so they are still there after a refresh.",
     "challenge": "Give people a simple way to move from browsing exercises to organizing an achievable workout session.",
     "solution": "I connected a searchable exercise library to individual workout pages and a plan dashboard, using shared React state and local storage to keep actions in sync.",
@@ -43,18 +145,49 @@
     ],
     "stack": ["Next.js", "React", "JavaScript", "Tailwind CSS", "Context API", "localStorage"],
     "github": "https://github.com/imamrakib354/My-FitLog-App",
-    "demo": "https://my-fit-log-app-delta.vercel.app/"
+    "demo": "https://my-fit-log-app-delta.vercel.app/",
+    "screenshots": [
+      { "src": "/projects/fitlog/home.webp", "width": 1600, "height": 2955, "title": "Explore the library", "alt": "FitLog workout library with search and illustrated exercise cards", "caption": "An exercise library pairs searchable titles with equipment, duration, calories, and rating information." },
+      { "src": "/projects/fitlog/details.webp", "width": 1600, "height": 1313, "title": "Know the movement", "alt": "FitLog exercise details with equipment, sets, reps, and planning actions", "caption": "The detail page puts exercise information beside actions to add it to today's plan or save it for later." },
+      { "src": "/projects/fitlog/plan.webp", "width": 1600, "height": 975, "title": "Start a daily plan", "alt": "FitLog plan dashboard showing zero totals and a helpful empty state", "caption": "The plan starts with a clear empty state. As exercises are added, the dashboard derives totals from shared state." }
+    ],
+    "architecture": {
+      "title": "One source of truth for the plan.",
+      "description": "The exercise catalog comes from an API; the personal plan lives in the browser. There is no cloud account synchronization.",
+      "nodes": [
+        { "label": "01 / CATALOG", "title": "Exercise API", "detail": "Next.js fetches the library and passes exercise data to the interface." },
+        { "label": "02 / ACTIONS", "title": "Search & plan", "detail": "Discover, save, add, complete, or remove exercises." },
+        { "label": "03 / STATE", "title": "React Context", "detail": "Shared plan, saved workouts, completion IDs, and derived totals." },
+        { "label": "04 / PERSISTENCE", "title": "localStorage", "detail": "Restore browser data first, then persist later state updates." }
+      ],
+      "note": "Local persistence makes refreshes convenient, but does not transfer plans between browsers or devices."
+    },
+    "workflow": [
+      { "title": "Explore", "detail": "Search exercise names and inspect movement information." },
+      { "title": "Plan", "detail": "Add up to five exercises, with duplicate checks and immediate feedback." },
+      { "title": "Complete", "detail": "Mark exercises as done and review the plan's derived totals." },
+      { "title": "Resume", "detail": "Return in the same browser and restore the saved plan from localStorage." }
+    ],
+    "decisions": [
+      { "title": "Keep related actions in shared state", "choice": "A Context provider owns the plan, saved exercises, completion IDs, and their actions.", "reason": "Cards, details, and the plan page need to reflect the same user choices.", "tradeoff": "Context is enough at this scale; a larger application may need more granular subscriptions." },
+      { "title": "Restore before persisting", "choice": "A storageLoaded flag gates writes until the initial localStorage read finishes.", "reason": "The initial empty React state should not overwrite an existing saved plan.", "tradeoff": "Browser storage still needs defensive parsing and cannot provide cross-device sync." },
+      { "title": "Derive totals from the plan", "choice": "Compute duration and calorie totals from the currently selected exercises.", "reason": "Derived values avoid maintaining a second set of totals that can drift out of sync.", "tradeoff": "Calorie values are estimates supplied by the catalog, not personalized measurements." }
+    ],
+    "lessons": ["Sharing state across pages without prop drilling", "Coordinating browser storage with React effects", "Designing duplicate checks, limits, and empty states"],
+    "improvements": ["Defensive storage parsing and state-transition tests", "Plan editing and clearer completion progress", "Optional accounts for cross-device persistence"]
   },
   {
     "slug": "movie-explorer",
     "name": "Movie Explorer",
     "category": "Entertainment",
+    "discipline": "Frontend",
     "type": "Frontend experience",
     "year": "2026",
     "image": "/images/movie explorer.png",
     "imageAlt": "Movie Explorer cinematic homepage with a purple and pink movie theater hero",
     "accent": "violet",
     "summary": "A cinematic way to discover, search, and learn about TV shows.",
+    "evidence": "External API integration, title search, and an in-context details modal.",
     "overview": "Movie Explorer makes discovering a new show feel as enjoyable as watching one. It brings together a browsable show grid, title search, ratings and release information, and a quick details view, all powered by the TVMaze API.",
     "challenge": "Present a large catalog of shows in an experience that feels inviting rather than overwhelming.",
     "solution": "I built a responsive, cinema-inspired interface with a clear search flow and a details modal that lets visitors explore a show without losing their place.",

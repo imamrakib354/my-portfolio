@@ -1,2 +1,67 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+:root {
+  color-scheme: dark;
+  --color-ink: #090e18;
+  --color-accent: #c7ff76;
+}
+
+html { scroll-padding-top: 7rem; }
+body { overflow-wrap: break-word; }
+::selection { background: #c7ff76; color: #090e18; }
+:focus-visible { outline: 2px solid #c7ff76; outline-offset: 5px; }
+button, a, input, select { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled) { cursor: pointer; }
+
+.skip-link {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 100;
+  transform: translateY(-180%);
+  border-radius: 0.5rem;
+  background: #c7ff76;
+  padding: 0.8rem 1.2rem;
+  color: #090e18;
+  font-weight: 600;
+}
+.skip-link:focus { transform: translateY(0); }
+.hero-grid {
+  background-image: linear-gradient(#ffffff04 1px, transparent 1px), linear-gradient(90deg, #ffffff04 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+.project-stage {
+  background: radial-gradient(ellipse at 60% 20%, var(--project-glow), transparent 80%), var(--project-bg);
+}
+.project-stage img { background: var(--project-bg); }
+.screenshot-dialog::backdrop { background: #040810ed; backdrop-filter: blur(12px); }
+.screenshot-dialog { color: #f1f5fa; color-scheme: dark; }
+.screenshot-dialog[open] { animation: dialog-enter 180ms ease-out; }
+.screenshot-scroll { scrollbar-color: #54657b #101827; }
+.section-anchor { scroll-margin-top: 7rem; }
+@keyframes dialog-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hero-line-enter {
+  from { opacity: 0; transform: translateY(110%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .hero-heading-line {
+    animation: hero-line-enter 720ms cubic-bezier(.22, 1, .36, 1) both;
+    animation-delay: calc(100ms + var(--line-index) * 150ms);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

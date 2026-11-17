@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Imam Hossain Rakib — Portfolio
 
-## Getting Started
+A multipage developer portfolio built with Next.js, React, Tailwind CSS, daisyUI, and Motion.
 
-First, run the development server:
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Updating content
 
-## Learn More
+- `src/data/profile.js`: name, email, social links, and location.
+- `src/data/projects.json`: project order, links, descriptions, screenshots, architecture, decisions, and reflections.
+- `src/data/skills.js`: skill groups and links to supporting project work.
+- `src/app/`: Home, About, Education, Skills, Projects, project details, and Connect pages.
 
-To learn more about Next.js, take a look at the following resources:
+Projects marked `featured: true` appear in the homepage showcase. The console uses the same project data for its count and latest build.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Case studies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Book Nook, Bazar Dor, and FitLog use the shared `/projects/[slug]` template. Screenshot, architecture, decision, and reflection sections are optional, so earlier work can use the shorter overview template.
 
-## Deploy on Vercel
+Each screenshot includes a public `src`, intrinsic `width` and `height`, `title`, descriptive `alt`, and a `caption`. Previews crop the image; the accessible dialog provides full-image scrolling, zoom, previous/next controls, arrow-key navigation, Escape dismissal, and native focus containment.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Optimized WebP screenshots live in `public/projects/`. Supplied Book Nook and Bazar Dor originals remain in their existing public directories. FitLog screenshots were prepared from the supplied local project's public assets. Case-study text and images are local: rendering the portfolio does not call the showcased applications' APIs.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Motion and accessibility
+
+`src/components/motion-provider.jsx` respects reduced-motion preferences. Reveals animate on intersection without hiding server-rendered content. Tabs, project filtering, galleries, and mobile navigation use short interaction transitions.
+
+Keep keyboard focus visible and preserve the tab keyboard handlers when changing interactive components.
+
+## Deployment and sharing
+
+Vercel's production hostname supplies the metadata origin automatically. For a custom domain or another host, set `NEXT_PUBLIC_SITE_URL` to the real public origin, such as `https://your-domain.com`, before building. See `.env.example`.
+
+Root and per-project `opengraph-image.js` routes generate branded social previews. Do not add placeholder live-site URLs or résumé links: add a résumé action only after the real PDF is available.
