@@ -19,12 +19,12 @@ export default function HeroConsole({ projects }) {
   };
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-white/15 bg-[#0b101b]">
+    <div className="w-full overflow-hidden rounded-2xl border border-white/15 bg-[#0b101b] shadow-[inset_0_1px_0_#ffffff0d]">
       <div className="flex items-center gap-2 border-b border-white/10 bg-white/3 px-4 py-3"><span className="size-2 rounded-full bg-[#ff8b8f]/80" /><span className="size-2 rounded-full bg-[#f9c65b]/80" /><span className="size-2 rounded-full bg-[#c7ff76]/80" /><span className="ml-auto font-mono text-[10px] text-[#8999ae]">rakib / workspace</span></div>
       <div className="flex gap-1 border-b border-white/10 px-3 py-2" role="tablist" aria-label="Developer workspace">
         {commands.map((command, index) => <button key={command.label} id={`${id}-${index}`} type="button" role="tab" tabIndex={active === index ? 0 : -1} aria-selected={active === index} aria-controls={`${id}-panel`} onClick={() => setActive(index)} onKeyDown={(event) => handleTabKeyDown(event, active, commands.length, setActive, id)} className={`rounded-md px-3 py-2 font-mono text-[10px] transition-colors sm:text-xs ${active === index ? "bg-[#c7ff76]/10 text-[#c7ff76]" : "text-[#8999ae] hover:bg-white/5 hover:text-white"}`}>./{command.label}</button>)}
       </div>
-      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${active}`} className="min-h-40 px-4 py-4 font-mono text-[11px] leading-7 text-[#c0cde0] sm:px-5 sm:text-xs" aria-live="polite">
+      <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-${active}`} className="min-h-40 bg-[linear-gradient(135deg,#111d2c,#0b101b_70%)] px-4 py-4 font-mono text-[11px] leading-7 text-[#c0cde0] sm:px-5 sm:text-xs" aria-live="polite">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div key={active} initial="hidden" animate="visible" exit={{ opacity: 0 }} variants={{ hidden: {}, visible: { transition: { staggerChildren: reducedMotion ? 0 : 0.09 } } }} transition={{ duration: reducedMotion ? 0 : 0.12 }}>
             <motion.p variants={row}><span className="text-[#6b86b2]">$</span> ./rakib --{commands[active].label}</motion.p>

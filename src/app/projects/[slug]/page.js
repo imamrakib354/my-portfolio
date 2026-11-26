@@ -1,12 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import projects from "@/data/projects.json";
 import { ArrowIcon, GithubIcon } from "@/components/icons";
 import ProjectCard from "@/components/project-card";
 import ProjectFacts from "@/components/project-facts";
 import ProjectScreenshots from "@/components/project-screenshots";
 import ProjectFlow from "@/components/project-flow";
+import TechnicalFlow from "@/components/technical-flow";
+import ReadingProgress from "@/components/reading-progress";
 import TechnicalDecisions from "@/components/technical-decisions";
 import Reveal from "@/components/reveal";
 import { projectTheme } from "@/lib/project-theme";
@@ -27,7 +30,15 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function ProjectDetailPage({ params }) {
+export default function ProjectDetailPage({ params }) {
+  return (
+    <Suspense fallback={<main className={`${container} py-16`} aria-busy="true"><p role="status" className="text-sm text-[#a8b7cd]">Loading project…</p></main>}>
+      <ProjectDetails params={params} />
+    </Suspense>
+  );
+}
+
+async function ProjectDetails({ params }) {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
   if (!project) notFound();
@@ -36,6 +47,7 @@ export default async function ProjectDetailPage({ params }) {
 
   return (
     <main>
+      <ReadingProgress />
       <section className={`${container} pt-9 pb-12 md:pb-16`}>
         <Link href="/projects" className="inline-flex items-center gap-2 text-sm text-[#a8b7cd] hover:text-[#c7ff76]"><ArrowIcon width={14} height={14} className="rotate-180" /> All projects</Link>
         <Reveal className="mt-12 md:mt-18">
@@ -87,6 +99,7 @@ export default async function ProjectDetailPage({ params }) {
       {project.architecture && <section id="architecture" className={`${container} ${section} section-anchor`}>
         <Reveal className="mb-10"><p className={eyebrow}>03 / UNDER THE HOOD</p><h2 className={title}>How the pieces<br /><em className={italic}>work together.</em></h2></Reveal>
         <ProjectFlow project={project} />
+        {project.technicalFlows?.length > 0 && <TechnicalFlow flows={project.technicalFlows} />}
       </section>}
 
       {project.decisions?.length > 0 && <section id="decisions" className={`section-anchor border-y border-white/10 bg-[#0d1421] ${section}`}>

@@ -11,13 +11,14 @@ import Reveal from "@/components/reveal";
 import { container, section, eyebrow, title, italic, lead, panel, primaryButton, outlineButton, textLink } from "@/lib/styles";
 
 export default function Home() {
-  const featured = projects.filter((project) => project.featured);
+  const featured = projects.filter((project) => project.featured).slice(0, 3);
 
   return (
     <main>
       <section className="relative isolate overflow-hidden border-b border-white/10" aria-labelledby="hero-title">
         <div className="hero-grid pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
         <div className="pointer-events-none absolute -top-30 right-[-20%] -z-10 size-[850px] rounded-full bg-[radial-gradient(circle,#32479b40,transparent_65%)] blur-3xl" aria-hidden="true" />
+        <div className="hero-orbit pointer-events-none absolute top-20 right-[6%] -z-10 hidden size-[440px] lg:block" aria-hidden="true" />
         <div className={`${container} grid items-center gap-14 pt-14 pb-16 md:pt-20 md:pb-20 lg:grid-cols-[1.15fr_.85fr] lg:gap-10 lg:py-24`}>
           <div className="relative z-10">
             <Reveal><p className="mb-7 inline-flex items-center gap-3 rounded-full border border-[#c7ff76]/25 bg-[#c7ff76]/5 px-4 py-2 font-mono text-[10px] tracking-wider text-[#c7ff76]"><span className="size-1.5 rounded-full bg-[#c7ff76]" /> FULL-STACK DEVELOPER / DHAKA, BD</p></Reveal>
@@ -34,9 +35,9 @@ export default function Home() {
             </Reveal>
           </div>
           <Reveal delay={150} className="relative mx-auto w-full min-w-0 max-w-[490px] lg:mr-0">
-            <div data-hero-composition className="rounded-[28px] border border-[#aebeff]/20 bg-[#101827]/70 p-3 shadow-[0_30px_100px_#0006] sm:p-4">
+            <div data-hero-composition className="editorial-panel rounded-[28px] border border-[#aebeff]/20 p-3 shadow-[0_30px_100px_#0006] sm:p-4">
               <div data-hero-portrait className="overflow-hidden rounded-2xl border border-white/15 bg-[#172337]">
-                <div className="relative aspect-[1.2]"><Image src="/images/Hero-Image.png" alt="Imam Hossain Rakib, full-stack developer" fill sizes="(max-width: 640px) 85vw, (max-width: 1024px) 450px, 430px" preload className="object-cover object-[center_12%] saturate-75" /></div>
+                <div className="hero-portrait-reveal relative aspect-[1.2]"><Image src="/images/Hero-Image.png" alt="Imam Hossain Rakib, full-stack developer" fill sizes="(max-width: 640px) 85vw, (max-width: 1024px) 450px, 430px" preload className="object-cover object-[center_12%] saturate-75" /><span aria-hidden="true" className="absolute right-4 bottom-4 rounded-full border border-white/25 bg-[#090e18]/80 px-3 py-2 font-mono text-[9px] tracking-widest text-[#c7ff76]">DESIGN + DEVELOPMENT</span></div>
                 <div className="flex items-center justify-between gap-3 border-t border-white/10 bg-[#0b1322] px-4 py-5 sm:px-5">
                   <div className="min-w-0"><p className="font-mono text-[9px] leading-5 tracking-[.12em] text-[#c7ff76]">THE PERSON BEHIND THE CODE</p><p data-hero-name className="mt-1 text-lg font-semibold leading-snug tracking-tight text-white sm:text-xl">{profile.name}</p></div>
                   <span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#c7ff76]/20 text-xl text-[#c7ff76]" aria-hidden="true">↗</span>
@@ -49,8 +50,8 @@ export default function Home() {
         <div className={`${container} flex flex-wrap items-center justify-between gap-4 border-t border-white/10 py-5 font-mono text-[10px] tracking-wider text-[#8f9fb7]`}><a href="#selected-work" className="flex items-center gap-3 text-[#c7ff76]">EXPLORE THE WORK <span aria-hidden="true">↓</span></a><span>DESIGN-MINDED. DEVELOPMENT-DRIVEN.</span><span className="hidden sm:inline">PORTFOLIO / 2026</span></div>
       </section>
 
-      <section id="selected-work" className={`${container} ${section} section-anchor`} aria-labelledby="work-heading">
-        <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-6"><div><p className={eyebrow}>01 / SELECTED WORK</p><h2 id="work-heading" className={title}>Real problems.<br /><em className={italic}>Working solutions.</em></h2><p className={`${lead} mt-5 max-w-xl`}>Three projects, three different challenges. Explore the interfaces, the implementation, and what I learned.</p></div><Link href="/projects" className={textLink}>All {projects.length} projects <ArrowIcon diagonal width={17} height={17} /></Link></Reveal>
+      <section id="selected-work" className={`${container} py-12 md:py-16 section-anchor`} aria-labelledby="work-heading">
+        <Reveal className="mb-7 flex flex-wrap items-end justify-between gap-6"><div><p className={eyebrow}>01 / SELECTED WORK</p><h2 id="work-heading" className={title}>Real problems.<br /><em className={italic}>Working solutions.</em></h2><p className={`${lead} mt-4 max-w-xl`}>Explore {featured.length} selected projects, their challenges, and how I built them.</p></div><Link href="/projects" className={textLink}>All {projects.length} projects <ArrowIcon diagonal width={17} height={17} /></Link></Reveal>
         <FeaturedWork projects={featured} />
       </section>
 
@@ -58,10 +59,10 @@ export default function Home() {
         <div className={`${container} grid gap-10 lg:grid-cols-[.8fr_1fr] lg:gap-20`}>
           <Reveal><p className={eyebrow}>02 / A LITTLE ABOUT ME</p><h2 id="about-heading" className={title}>Curiosity is<br /><em className={italic}>the starting point.</em></h2><Link href="/about" className={`${textLink} mt-8`}>Meet the developer <ArrowIcon diagonal width={17} height={17} /></Link></Reveal>
           <div>
-            <Reveal><p className="max-w-2xl text-2xl font-medium leading-snug tracking-tight text-white sm:text-3xl">I enjoy connecting the details people see with the systems they don&apos;t.</p><p className="mt-6 text-base leading-8 text-[#a8b7cd]">A Computer Science graduate from BUBT, I learn by building useful things: a community book library, a Bengali market-price guide, and a workout planner. Each project has pushed me further—from managing interface state to protecting backend operations.</p></Reveal>
-            <div className="mt-8 grid gap-6 border-t border-white/10 pt-7 sm:grid-cols-2">
-              <Reveal><span className="font-mono text-[10px] tracking-widest text-[#c7ff76]">01 / CLARITY FIRST</span><p className="mt-3 text-sm leading-7 text-[#a8b7cd]">Make the next action obvious. Design the loading, empty, and error states—not just the happy path.</p></Reveal>
-              <Reveal delay={70}><span className="font-mono text-[10px] tracking-widest text-[#aebeff]">02 / KEEP IMPROVING</span><p className="mt-3 text-sm leading-7 text-[#a8b7cd]">Understand why a solution works, acknowledge its tradeoffs, and make the next version better.</p></Reveal>
+            <Reveal><p className="max-w-2xl text-2xl font-medium leading-snug tracking-tight text-white sm:text-3xl">I enjoy connecting the details people see with the systems they don&apos;t.</p><p className="mt-6 text-base leading-8 text-[#a8b7cd]">A Computer Science graduate from BUBT, I learn by building useful things: a tuition marketplace, a community book library, and a Bengali market-price guide. Each project has pushed me further—from managing interface state to protecting backend operations and verifying payments.</p></Reveal>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <Reveal className="editorial-panel rounded-2xl border border-white/10 p-6"><span className="font-mono text-[10px] tracking-widest text-[#c7ff76]">01 / CLARITY FIRST</span><p className="mt-3 text-sm leading-7 text-[#a8b7cd]">Make the next action obvious. Design the loading, empty, and error states—not just the happy path.</p></Reveal>
+              <Reveal delay={70} className="editorial-panel rounded-2xl border border-white/10 p-6"><span className="font-mono text-[10px] tracking-widest text-[#aebeff]">02 / KEEP IMPROVING</span><p className="mt-3 text-sm leading-7 text-[#a8b7cd]">Understand why a solution works, acknowledge its tradeoffs, and make the next version better.</p></Reveal>
             </div>
           </div>
         </div>

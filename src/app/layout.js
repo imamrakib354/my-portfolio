@@ -14,7 +14,7 @@ export const metadata = {
   ),
   title: { default: "Imam Hossain Rakib — Full-stack Developer", template: "%s | Imam Hossain Rakib" },
   description: "Full-stack developer in Dhaka building thoughtful interfaces and the APIs behind them. Explore Next.js, TypeScript, Express, and MongoDB projects.",
-  openGraph: { title: "Imam Hossain Rakib — Full-stack Developer", description: "Thoughtful interfaces. Full-stack experiences. Explore Book Nook, Bazar Dor, and FitLog.", type: "website" },
+  openGraph: { title: "Imam Hossain Rakib — Full-stack Developer", description: "Thoughtful interfaces. Full-stack experiences. Explore MentorLagbe, Book Nook, and more.", type: "website" },
   twitter: { card: "summary_large_image" },
 };
 

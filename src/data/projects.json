@@ -1,5 +1,94 @@
 [
   {
+    "slug": "mentor-lagbe",
+    "name": "MentorLagbe",
+    "category": "Education & mentorship",
+    "discipline": "Full-stack",
+    "featured": true,
+    "type": "Tuition marketplace",
+    "role": "Frontend & backend development",
+    "year": "2026",
+    "image": "/MentorLagbeImages/HomePage.png",
+    "imageAlt": "MentorLagbe homepage introducing its tutor and mentorship marketplace",
+    "accent": "blue",
+    "summary": "A tuition marketplace connecting students and tutors in Bangladesh.",
+    "evidence": "Role-based dashboards, tuition applications, and Stripe Checkout for one-time Pro plans.",
+    "overview": "MentorLagbe brings students and tutors together around tuition listings and mentorship batches. I built a Next.js and TypeScript application with a separate Express API and MongoDB, giving students, tutors, and administrators their own workflows alongside Stripe-powered Pro plans.",
+    "challenge": "Bring discovery, applications, listing management, administration, and payments into one product while making each role's next steps clear.",
+    "solution": "I built dedicated dashboards for each role, connected the marketplace to an Express API, and added Stripe Checkout with server-side verification before activating a Pro plan.",
+    "features": [
+      "Search and filter tuition listings and apply to batches",
+      "Save listings, track applications, and review accepted tuitions",
+      "Tutor listing, batch, and applicant management",
+      "Admin tools for users, listing moderation, and transactions",
+      "One-time student and tutor Pro plans through Stripe Checkout",
+      "Email/password and Google sign-in, profiles, and light/dark themes"
+    ],
+    "stack": ["Next.js", "TypeScript", "React", "Express.js", "MongoDB", "Better Auth", "Stripe", "Tailwind CSS", "Base UI"],
+    "github": "https://github.com/imamrakib354/Mentor-Lagbe-Client",
+    "serverGithub": "https://github.com/imamrakib354/Mentor-Lagbe-Server",
+    "demo": "https://mentor-lagbe-client-one.vercel.app/",
+    "screenshots": [
+      { "src": "/MentorLagbeImages/HomePage.png", "width": 1900, "height": 4801, "title": "Meet MentorLagbe", "alt": "MentorLagbe homepage with featured tuitions, pricing, and an introduction to the platform", "caption": "The homepage introduces the marketplace, highlights tuition opportunities, and explains how students and tutors can get started." },
+      { "src": "/MentorLagbeImages/browseTuitions.png", "width": 1900, "height": 2595, "title": "Find a tuition", "alt": "MentorLagbe tuition browsing page with search and listings", "caption": "Students can explore tuition listings and narrow their search to find a suitable learning opportunity." },
+      { "src": "/MentorLagbeImages/StudentDashboard.png", "width": 1900, "height": 1100, "title": "Student dashboard", "alt": "MentorLagbe student dashboard", "caption": "A dedicated student workspace brings learning activity and application management together." },
+      { "src": "/MentorLagbeImages/TutorDashboard.png", "width": 1900, "height": 1100, "title": "Tutor dashboard", "alt": "MentorLagbe tutor dashboard", "caption": "Tutors have their own workspace for managing their presence and tuition activity." },
+      { "src": "/MentorLagbeImages/AdminDashboard.png", "width": 1900, "height": 1450, "title": "Admin dashboard", "alt": "MentorLagbe administration dashboard", "caption": "An administrative view supports oversight of users, listings, and platform activity." },
+      { "src": "/MentorLagbeImages/Pricing.png", "width": 1900, "height": 1771, "title": "Plans & payments", "alt": "MentorLagbe pricing page comparing student and tutor plans", "caption": "Student and tutor plans are presented side by side, with one-time Pro purchases handled through Stripe Checkout." },
+      { "src": "/MentorLagbeImages/About.png", "width": 1900, "height": 2299, "title": "The mission", "alt": "MentorLagbe about page describing the platform", "caption": "The about page introduces the purpose behind the student and tutor marketplace." }
+    ],
+    "architecture": {
+      "title": "A marketplace with distinct roles.",
+      "description": "The Next.js application handles the interface, authentication, and checkout routes; a separate Express API serves marketplace operations.",
+      "nodes": [
+        { "label": "01 / EXPERIENCE", "title": "Next.js + TypeScript", "detail": "Public discovery, pricing, and student, tutor, and admin dashboards." },
+        { "label": "02 / IDENTITY", "title": "Better Auth", "detail": "Email and Google sign-in with roles for the marketplace experience." },
+        { "label": "03 / MARKETPLACE", "title": "Express + MongoDB", "detail": "Tuition listings, applications, users, reviews, and payment records." },
+        { "label": "04 / PAYMENTS", "title": "Stripe Checkout", "detail": "One-time Pro checkout and server-side verification before premium activation." }
+      ],
+      "note": "The current payment flow verifies a completed checkout after the user returns; webhook-based activation is a future improvement."
+    },
+    "workflow": [
+      { "title": "Discover", "detail": "Students browse and filter tuition listings to find a suitable batch." },
+      { "title": "Apply", "detail": "Students apply and track their applications; tutors review applicants." },
+      { "title": "Manage", "detail": "Tutors manage listings while admins moderate the marketplace." },
+      { "title": "Upgrade", "detail": "Students or tutors can purchase a one-time Pro plan through Stripe Checkout." }
+    ],
+    "technicalFlows": [
+      {
+        "title": "A protected API request",
+        "label": "IDENTITY / JWT",
+        "description": "A simplified look at how MentorLagbe identifies a user before protected marketplace actions.",
+        "steps": [
+          { "title": "Sign in", "detail": "Better Auth handles the user's session and supplies a token for protected API requests." },
+          { "title": "Send token", "detail": "The client sends a bearer JWT in the Authorization header to the Express API." },
+          { "title": "Verify identity", "detail": "The API verifies the token with jose and Better Auth's JWKS, checking the issuer and audience." },
+          { "title": "Check access", "detail": "The API loads the user from MongoDB, checks account status, and applies role checks where required." }
+        ],
+        "note": "Authentication establishes identity; authorization and ownership checks depend on the specific route."
+      },
+      {
+        "title": "From checkout to Pro",
+        "label": "PAYMENTS / STRIPE",
+        "description": "A one-time plan purchase is verified on the server before premium access is activated.",
+        "steps": [
+          { "title": "Choose a plan", "detail": "A student or tutor selects a one-time Pro plan and continues to Stripe Checkout." },
+          { "title": "Complete checkout", "detail": "Stripe handles the payment, then the customer returns to the application's success page." },
+          { "title": "Verify payment", "detail": "The authenticated Express endpoint retrieves the Stripe session and checks payment status, user, role, plan, and expected price." },
+          { "title": "Activate Pro", "detail": "The API records the checkout session and updates the user's premium status." }
+        ],
+        "note": "Activation currently depends on returning to the success page. Webhook-based activation is a future improvement."
+      }
+    ],
+    "decisions": [
+      { "title": "Separate role-specific workflows", "choice": "Provide dedicated student, tutor, and admin dashboards around their respective tasks.", "reason": "Discovery, teaching, and moderation each need a different set of actions.", "tradeoff": "Role-based interfaces must be backed by server-side authorization, not visibility alone." },
+      { "title": "Verify checkout on the server", "choice": "Retrieve the Stripe session and check payment status, user, role, plan, and price before recording payment and activating premium.", "reason": "A successful-looking browser redirect alone is not proof of payment.", "tradeoff": "Activation currently depends on the customer returning to the success page; a webhook would make it more reliable." },
+      { "title": "Keep payment records repeatable", "choice": "Upsert a payment record using the Checkout session ID when verifying a purchase.", "reason": "Refreshing the success page should not create another transaction record.", "tradeoff": "The payment record and premium update are separate operations and need careful handling on failures." }
+    ],
+    "lessons": ["Designing distinct workflows for a multi-role marketplace", "Connecting Stripe Checkout to server-side payment verification", "Coordinating authentication and marketplace data across two applications"],
+    "improvements": ["Webhook-based payment activation and recovery", "Enforce plan limits and authorization consistently on the backend", "Automated tests for role permissions, applications, and payment flows"]
+  },
+  {
     "slug": "book-nook",
     "name": "Book Nook",
     "category": "Community & reading",
@@ -66,7 +155,7 @@
     "slug": "bazar-dor",
     "name": "Bazar Dor",
     "category": "Everyday utility",
-    "discipline": "Full-stack",
+    "discipline": "Frontend",
     "featured": true,
     "type": "API-driven app with authentication",
     "role": "Interface & application development",
